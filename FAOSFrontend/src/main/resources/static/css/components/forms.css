@@ -1,0 +1,33 @@
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 5px rgba(29, 112, 162, 0.5);
+}
+
+.form-control.invalid {
+  border-color: var(--error-color);
+}
+
+.form-control.invalid:focus {
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}

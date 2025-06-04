@@ -1,0 +1,77 @@
+:root {
+  --primary-color: #6e2594;
+  --secondary-color: #1d70a2;
+  --background-color: #f3f8fa;
+  --text-color: #333;
+  --error-color: #dc3545;
+  --success-color: #28a745;
+  --border-color: #ddd;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.welcome-text {
+  font-size: 2.5em;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+}
+
+.error {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.success-message {
+  color: var(--success-color);
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.container {
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+.header {
+    margin-bottom: 0;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}

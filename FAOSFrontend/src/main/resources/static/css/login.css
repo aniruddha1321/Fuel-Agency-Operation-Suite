@@ -1,0 +1,52 @@
+/* login.css */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+}
+
+.login-title {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.error-message {
+    color: var(--error-color);
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+/* Override form group spacing for login page */
+.login-container .form-group {
+    margin-bottom: 25px;
+}
+
+/* Style the select dropdown consistently */
+.login-container select.form-control {
+    background-color: white;
+    cursor: pointer;
+}
+
+.login-container select.form-control:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
+
+/* Add some hover effects to form inputs */
+.login-container .form-control:hover {
+    border-color: var(--secondary-color);
+}
+
+/* Style placeholder text */
+.login-container .form-control::placeholder {
+    color: #999;
+    font-size: 0.9em;
+}
+
+/* Make sure the error message shows when it has content */
+.login-container .error-message:not(:empty) {
+    display: block;
+}

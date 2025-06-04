@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - FAOS</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components/header.css">
+    <link rel="stylesheet" href="/css/components/buttons.css">
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav">
+        <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Customer</a>
+            <div class="dropdown-content">
+                <a href="/register" class="dropdown-item">Customer Registration</a>
+                <a href="/customers" class="dropdown-item">Display Customers</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a href="/cylinder" class="nav-link">Cylinder Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/supplier" class="nav-link">Supplier Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/booking" class="nav-link">Customer Booking</a>
+        </li>
+        <li class="nav-item">
+            <a href="/reports" class="nav-link">Report Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/logout" class="nav-link">Logout</a>
+        </li>
+    </nav>
+</header>
+
+<div class="container text-center">
+    <h1 class="welcome-text">Welcome to Fuel Agency Operation Suite</h1>
+    <p>Efficiently manage your customer information with our comprehensive system</p>
+    <div class="actions">
+        <a href="/register" class="btn btn-primary">Register Customer</a>
+        <a href="/customers" class="btn btn-secondary">Display Customers</a>
+    </div>
+</div>
+</body>
+</html>

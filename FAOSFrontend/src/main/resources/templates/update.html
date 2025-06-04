@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Customer - FAOS</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components/header.css">
+    <link rel="stylesheet" href="/css/components/forms.css">
+    <link rel="stylesheet" href="/css/components/buttons.css">
+</head>
+<body>
+<header class="header">
+    <nav class="nav">
+        <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="/customers" class="nav-link">Display Customers</a></li>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2 class="text-center">Update Customer Information</h2>
+
+        <form th:action="@{'/update/' + ${customer.consumerId}}" th:object="${customer}" method="post">
+            <input type="hidden" th:field="*{consumerId}">
+
+            <div class="form-group">
+                <label class="form-label" for="name">Name:</label>
+                <input type="text" class="form-control" id="name" th:field="*{consumerName}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="address">Address:</label>
+                <textarea class="form-control" id="address" th:field="*{address}" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="contact">Contact Number:</label>
+                <input type="tel" class="form-control" id="contact" th:field="*{contactNo}"
+                       pattern="^[6-9]\d{9}$"
+                       title="Phone number must start with 6-9 and be 10 digits long"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email:</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="connType">Connection Type:</label>
+                <input type="text" class="form-control" id="connType" th:field="*{connType}" readonly>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="/customers" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

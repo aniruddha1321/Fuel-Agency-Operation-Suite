@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration - FAOS</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components/header.css">
+    <link rel="stylesheet" href="/css/components/forms.css">
+    <link rel="stylesheet" href="/css/components/buttons.css">
+    <style>
+        .text-danger {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav">
+        <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Customer</a>
+            <div class="dropdown-content">
+                <a href="/register" class="dropdown-item">Customer Registration</a>
+                <a href="/customers" class="dropdown-item">Display Customers</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a href="/cylinder" class="nav-link">Cylinder Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/supplier" class="nav-link">Supplier Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/booking" class="nav-link">Customer Booking</a>
+        </li>
+        <li class="nav-item">
+            <a href="/reports" class="nav-link">Report Management</a>
+        </li>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2 class="text-center">Customer Registration</h2>
+
+        <div th:if="${param.success}" class="success-message text-center">
+            Registration successful!
+        </div>
+
+        <form th:action="@{/register}" th:object="${customer}" method="post" id="registrationForm">
+            <!-- Backend-specific global error message -->
+            <div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}"></p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="name">Name:</label>
+                <input type="text" class="form-control" id="name" th:field="*{consumerName}"
+                       required>
+                <div th:if="${#fields.hasErrors('consumerName')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('consumerName')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="address">Address:</label>
+                <textarea class="form-control" id="address" th:field="*{address}"
+                          rows="3" required maxlength="200"></textarea>
+                <div th:if="${#fields.hasErrors('address')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('address')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Email field with additional error handling -->
+            <div class="form-group">
+                <label class="form-label" for="email">Email:</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}"
+                       required>
+                <div th:if="${#fields.hasErrors('email')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('email')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Contact field with additional error handling -->
+            <div class="form-group">
+                <label class="form-label" for="contact">Contact Number:</label>
+                <input type="tel" class="form-control" id="contact" th:field="*{contactNo}"
+                       required pattern="[0-9]{10}"
+                       title="Contact number must be a 10-digit number">
+                <div th:if="${#fields.hasErrors('contactNo')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('contactNo')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="connType">Connection Type:</label>
+                <select class="form-control" id="connType" th:field="*{connType}" required>
+                    <option value="">Select Type</option>
+                    <option value="Domestic">Domestic</option>
+                    <option value="Commercial">Commercial</option>
+                </select>
+                <div th:if="${#fields.hasErrors('connType')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('connType')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

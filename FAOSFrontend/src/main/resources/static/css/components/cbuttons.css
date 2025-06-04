@@ -1,0 +1,86 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 90px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #0077b6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #005b8e;
+}
+
+.btn-secondary {
+    background-color: #6E2594;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a1e7a;
+}
+
+button[type="submit"].btn-primary {
+    background-color: #0077b6;
+    color: white;
+}
+
+/* Clear button */
+a.btn-secondary {
+    background-color: #6E2594;
+    color: white;
+}
+
+/* Status badge styles */
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+.status-active {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-inactive {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-group {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.search-form .btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .btn {
+        padding: 6px 12px;
+        min-width: 80px;
+    }
+
+    .btn-group {
+        width: auto;
+    }
+}

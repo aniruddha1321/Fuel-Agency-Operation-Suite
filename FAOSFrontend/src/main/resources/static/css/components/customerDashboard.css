@@ -1,0 +1,212 @@
+/* Merged and Updated CSS */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 20px;
+}
+
+.dashboard-container {
+  padding: 20px 0;
+}
+
+.welcome-section {
+  margin-bottom: 30px;
+}
+
+.welcome-section h1 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.customer-id {
+  color: var(--secondary-color);
+  font-size: 1.1em;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background: var(--primary-color);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.card-header h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.info-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.info-group label {
+  font-weight: bold;
+  width: 140px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+}
+
+.info-group span {
+  color: var(--text-color);
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  display: inline-block;
+}
+
+.status-badge.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-badge.inactive {
+  background-color: #dc3545;
+  color: white;
+}
+
+.connection-type {
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: var(--background-color);
+  border-radius: 6px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover {
+  background: var(--secondary-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+.quick-action-btn i {
+  font-size: 1.2em;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.9em;
+}
+
+.password-section {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.button-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.button-primary:hover {
+  background-color: #0056b3;
+}
+.successMessage {
+    /* Basic Styling */
+    color: #155724; /* Dark green text for success */
+    background-color: #d4edda; /* Light green background */
+    border: 1px solid #c3e6cb; /* Border matching the background theme */
+    padding: 15px 20px; /* Padding for better readability */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 1rem; /* Responsive font size */
+    font-family: 'Arial', sans-serif; /* Clean and standard font */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+    /* Flexbox for icon and text alignment */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    
+    /* Animation */
+    animation: fadeInSlideDown 0.5s ease-in-out;
+}
+
+/* Success Icon Styling (optional) */
+.successMessage::before {
+    content: '✔'; /* Unicode for checkmark */
+    font-size: 1.2rem;
+    color: #155724;
+    display: inline-block;
+}
+
+/* Fade-in and slide-down animation */
+@keyframes fadeInSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 600px) {
+    .successMessage {
+        font-size: 0.9rem; /* Smaller font size for mobile */
+        padding: 10px 15px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-group {
+    flex-direction: column;
+  }
+
+  .info-group label {
+    margin-bottom: 5px;
+  }
+}

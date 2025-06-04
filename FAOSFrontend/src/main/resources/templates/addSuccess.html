@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer Registration Success</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components/header.css">
+    <link rel="stylesheet" href="/css/components/buttons.css">
+    <style>
+        .customer-detail {
+            padding: 8px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .customer-detail:hover {
+            background-color: var(--background-color);
+        }
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="alert-success text-center">
+        <h4>Congratulations!</h4>
+        <p>Consumer has been successfully added! (Email has been sent)</p>
+    </div>
+
+    <div class="card">
+        <h2 class="text-center">Customer Details</h2>
+        <div th:if="${customer}">
+            <div class="customer-detail">
+                <strong>Consumer ID:</strong>
+                <span th:text="${customer.consumerId}"></span>
+            </div>
+            <div class="customer-detail">
+                <strong>Name:</strong>
+                <span th:text="${customer.consumerName}"></span>
+            </div>
+            <div class="customer-detail">
+                <strong>Email:</strong>
+                <span th:text="${customer.email}"></span>
+            </div>
+            <div class="customer-detail">
+                <strong>Contact:</strong>
+                <span th:text="${customer.contactNo}"></span>
+            </div>
+            <div class="customer-detail">
+                <strong>Address:</strong>
+                <span th:text="${customer.address}"></span>
+            </div>
+            <div class="customer-detail">
+                <strong>Connection Type:</strong>
+                <span th:text="${customer.connType}"></span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a th:href="@{'/update/' + ${customer.consumerId}}" class="btn btn-secondary">Update Info</a>
+            <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer List - FAOS</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/components/header.css" />
+    <link rel="stylesheet" href="/css/components/forms.css" />
+    <link rel="stylesheet" href="/css/components/cbuttons.css" />
+    <link rel="stylesheet" href="/css/components/customers.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<header class="header">
+    <nav class="nav">
+        <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Customer</a>
+            <div class="dropdown-content">
+                <a href="/register" class="dropdown-item">Customer Registration</a>
+                <a href="/customers" class="dropdown-item">Display Customers</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a href="/cylinder" class="nav-link">Cylinder Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/supplier" class="nav-link">Supplier Management</a>
+        </li>
+        <li class="nav-item">
+            <a href="/booking" class="nav-link">Customer Booking</a>
+        </li>
+        <li class="nav-item">
+            <a href="/reports" class="nav-link">Report Management</a>
+        </li>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="search-box">
+        <div class="d-flex justify-content-between align-items-center">
+            <form th:action="@{/customers}" method="get" class="search-form">
+                <input type="text" class="search-input" id="searchId" name="searchId"
+                       placeholder="Search by Customer ID" th:value="${searchId}">
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                <a th:href="@{/customers}" class="btn btn-secondary btn-sm">Clear</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="table" th:if="${customers != null and !customers.empty}">
+            <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Connection Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}" th:class="${!customer.active ? 'inactive-row' : ''}">
+                <td th:text="${customer.consumerId}"></td>
+                <td th:text="${customer.consumerName}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.contactNo}"></td>
+                <td th:text="${customer.address}"></td>
+                <td th:text="${customer.connType}"></td>
+                <td>
+                            <span class="status-badge"
+                                  th:classappend="${customer.active ? 'status-active' : 'status-inactive'}"
+                                  th:text="${customer.active ? 'Active' : 'Inactive'}">
+                            </span>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a th:if="${customer.active}"
+                           th:href="@{'/update/' + ${customer.consumerId}}"
+                           class="btn btn-primary btn-sm">Edit</a>
+                        <button th:if="${customer.active}"
+                                class="btn btn-secondary btn-sm"
+                                onclick="confirmDeactivate(this)"
+                                th:data-customer-id="${customer.consumerId}">Deactivate</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${customers == null or customers.empty}" class="card-content">
+            No customers found.
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="deactivateModal" tabindex="-1">
+    <div class="modal-content">
+        <h3>Confirm Deactivation</h3>
+        <p>Are you sure you want to deactivate this customer?</p>
+        <div class="btn-group" style="justify-content: flex-end">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="confirmDeactivateBtn">Deactivate</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let customerIdToDeactivate = null;
+    const deactivateModal = document.getElementById('deactivateModal');
+
+    function confirmDeactivate(button) {
+        customerIdToDeactivate = button.getAttribute('data-customer-id');
+        deactivateModal.classList.add('show');
+    }
+
+    deactivateModal.querySelector('[data-bs-dismiss="modal"]').addEventListener('click', function() {
+        deactivateModal.classList.remove('show');
+    });
+
+    document.getElementById('confirmDeactivateBtn').addEventListener('click', function() {
+        if (customerIdToDeactivate) {
+            fetch(`/deactivate/${customerIdToDeactivate}`, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Failed to deactivate customer');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deactivating the customer');
+            });
+            deactivateModal.classList.remove('show');
+        }
+    });
+</script>
+</body>
+</html>
