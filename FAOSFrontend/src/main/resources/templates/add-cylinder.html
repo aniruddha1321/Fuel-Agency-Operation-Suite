@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Add Cylinder</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/css/components/header.css" />
+    <link rel="stylesheet" href="/css/components/buttons.css" />
+    <link rel="stylesheet" href="/css/sidebar.css" />
+
+    <style>
+   
+
+   header {
+        background-color: #0b2f9f;
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position:fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100000;
+
+      }
+
+      .container {
+        margin: 12rem auto 2rem 290px;
+        background: white;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        }
+
+
+      @media (max-width: 970px) {
+        .container {
+          margin-left: auto;
+        }
+      }
+
+      @media (max-width:768px)
+      {
+        .btn{
+            font-size: 13px
+        }
+      }
+      .sideBar{
+      margin-top:-3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="sidebar-hamburger hamburger">&#9776;</button>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Sidebar -->
+    <div th:insert="~{fragments/sidebar :: div}" class="sideBar"></div>
+
+
+    <!-- Main Content -->
+    <div class="container" style="width: 80%;">
+      <h2 class="fw-bold text-primary mt-4">Add New Cylinder</h2>
+      <p class="text-muted">Fill in the details below to add a new cylinder.</p>
+
+      <div class="card shadow-lg border-0 p-4 mt-3">
+        <div class="card-body">
+          <form
+            th:action="@{/save-cylinder}"
+            method="post"
+            th:object="${cylinder}"
+          >
+            <div class="mb-3">
+              <label class="form-label">Cylinder Type</label>
+              <select
+                name="type"
+                class="form-select"
+                th:field="*{type}"
+                required
+                readonly
+              >
+                <option value="EMPTY">Empty</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Weight (in kg)</label>
+              <input
+                type="number"
+                step="any"
+                name="weight"
+                class="form-control"
+                th:field="*{weight}"
+                required
+             onchange="checkValue()" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" th:field="*{status}">Status</label>
+              <select name="status" class="form-select" required readonly>
+                <option value="AVAILABLE">Available</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Supplier</label>
+              <select name="supplierId" class="form-select" required>
+                <option value="">Select supplier</option>
+                <option
+                  th:each="supplier : ${suppliers}"
+                  th:value="${supplier.supplierID}"
+                  th:text="${supplier.name}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <a th:href="@{/cylinders}" class="btn btn-secondary"
+                >Back to List</a
+              >
+              <button type="submit" class="btn btn-success">
+                Save Cylinder
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/js/hamburgerMenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const checkValue = () => {
+          var value = document.querySelector(".form-control");
+          if (value.value < 1) {
+              alert("Cylinder weight should  not be less than 1");
+              value.value="";
+
+          }
+      }
+    </script>
+
+  </body>
+</html>

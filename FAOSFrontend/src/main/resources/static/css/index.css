@@ -1,0 +1,64 @@
+/* General body styles */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #003366, #00A3E0); /* Professional blue gradient */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+/* Header styles */
+h1 {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, #002D62, #005792);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Flex container for centering content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px); /* Adjust height to exclude the header */
+}
+
+/* List container */
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+/* Button-like link styling */
+li a {
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(135deg, #005792, #00A3E0); /* Vibrant blue gradient */
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Link hover effect */
+li a:hover {
+    background: linear-gradient(135deg, #003366, #005792);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* Add spacing between list items */
+ul li {
+    margin-top: 10px;
+}

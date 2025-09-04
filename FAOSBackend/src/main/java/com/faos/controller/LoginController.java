@@ -40,7 +40,7 @@ public class LoginController {
 		            }
             	}
 		        else 
-		        	return ResponseEntity.status(401).body("Invalid Id or password");
+		        	return ResponseEntity.status(401).body("Invalid UserId  or password");
 		        
 		       }
 		 

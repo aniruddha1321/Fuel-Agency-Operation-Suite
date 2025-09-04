@@ -23,12 +23,12 @@
 }
 
 .btn-secondary {
-    background-color: #6E2594;
+    background-color: #b9314f;
     color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #5a1e7a;
+    background-color: #b9314f;
 }
 
 button[type="submit"].btn-primary {
@@ -38,7 +38,7 @@ button[type="submit"].btn-primary {
 
 /* Clear button */
 a.btn-secondary {
-    background-color: #6E2594;
+    background-color: #b9314f;
     color: white;
 }
 

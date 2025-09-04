@@ -1,18 +1,26 @@
 package com.faos.model;
 
+import java.time.LocalDateTime;
+
+
 public class Customer {
 
     private String consumerId;
     private String consumerName;
+    
     private String address;
     private String contactNo;
+
     private String email;
     private boolean isActive;
+    private LocalDateTime regDate;
+
     private String connType;
 
     public Customer() {
-        isActive=true;
+        isActive = true;
     }
+
     public String getConsumerId() {
         return consumerId;
     }

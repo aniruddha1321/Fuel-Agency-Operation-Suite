@@ -1,0 +1,122 @@
+.successMessage, .error-info {
+    /* Basic Styling */
+    position: fixed;
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    width: fit-content;
+    text-align: center;
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 6px 21px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: "Arial", sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex
+;
+    align-items: center;
+    gap: 10px;
+    animation: fadeInSlideDown 0.5s ease-in-out;
+}
+
+/* Error Message Styling */
+.error-info {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+/* Hidden State */
+.successMessage.hidden, .error-info.hidden {
+    display: none !important;
+}
+
+/* Success & Error Icons */
+.successMessage::before, .error-info::before {
+    font-size: 1.2rem;
+    display: inline-block;
+}
+.successMessage::before {
+    content: "✔"; /* Checkmark */
+    color: #155724;
+}
+.error-info::before {
+    content: "⚠"; /* Warning symbol */
+    color: #721c24;
+}
+
+.container h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .report-toggle{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+ 
+
+/* Fade-in & Slide-down Animation */
+@keyframes fadeInSlideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%);
+    }
+}
+
+/* Fade-out Animation */
+.fade-out {
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .successMessage, .error-info {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+        top: 8%;
+    }
+    .report-toggle{
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+@media (max-width: 768px) {
+    .container h1 {
+      font-size: 2.2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 1.5rem;
+    }
+    .report-toggle{
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+  }

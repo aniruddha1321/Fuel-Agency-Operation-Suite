@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+			background-color: #D4EBF8;
+        }
+        .sidebar {
+            min-width: 300px;
+            background-color: #000B58;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+			font-size: large;
+            margin: 15px 0;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .sidebar a:hover {
+            background-color: #1F509A;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+		h1{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3 class="text-center">Operations</h3>
+        <a href="#" onclick="showContent('home')">Home</a>
+        <a href="#" onclick="navigate('/addSupplier')">Add Supplier</a>
+        <a href="#" onclick="navigate('/suppliers')">View Suppliers</a>
+        <a href="#" onclick="navigate('/suppliers/edit/supp100')">Update Suppliers</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="content">
+        <h1>Welcome to Supplier Management</h1>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Dynamic Content Script -->
+    <script>
+        function showContent(section) {
+            const content = document.getElementById('content');
+            if (section === 'home') {
+                content.innerHTML = '<h1>Welcome to Supplier Management</h1>';
+            } else if (section === 'addSupplier') {
+                content.innerHTML = ``;
+            } else if (section === 'viewSuppliers') {
+                content.innerHTML = ``;
+            } else if (section === 'updateSuppliers') {
+                content.innerHTML = `
+                    <h1>Update Supplier</h1>
+                    <form class="mt-4">
+                        <div class="mb-3">
+                            <label for="supplierId" class="form-label">Supplier ID</label>
+                            <input type="text" class="form-control" id="supplierId" placeholder="Enter supplier ID">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newSupplierName" class="form-label">New Supplier Name</label>
+                            <input type="text" class="form-control" id="newSupplierName" placeholder="Enter new supplier name">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>`;
+            }
+        }
+    </script>
+        <script src="/js/hamburgerMenu.js"></script>
+</body>
+</html>
+
+<!--
+	#E38E49 - chandan
+	#0A3981 - bark blue
+	#1F509A - blue
+	#D4EBF8 - light blue
+-->

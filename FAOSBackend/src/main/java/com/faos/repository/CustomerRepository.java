@@ -1,13 +1,13 @@
 package com.faos.repository;
 
-import com.faos.model.Customer;
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.faos.model.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
@@ -30,4 +30,11 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 	//Fetch isActive status from database
 	@Query("SELECT c.isActive FROM Customer c WHERE c.consumerId = :consumerId")
     Boolean findIsActiveByConsumerId(@Param("consumerId") String consumerId);
+	
+    @Query(value = "SELECT * FROM customers WHERE consumerId = :consumerId limit 1", nativeQuery = true)
+    List<Customer> findByConsumerId(String consumerId);
+
+    // @Query(value = "SELECT * FROM customers WHERE consumerId = :consumerId limit 1", nativeQuery = true)
+    // Optional<Customer> findById(String consumerId);
+	
 }

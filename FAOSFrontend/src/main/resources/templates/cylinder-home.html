@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cylinder Management System for efficient cylinder tracking and management." />
+  <title>Home - Cylinder Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/components/header.css" />
+  <link rel="stylesheet" href="/css/sidebar.css" />
+
+  <style>
+    /* Global Styles */
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Background with Blur Effect */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("/images/cylinder-background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(3px);
+      z-index: -1;
+    }
+
+    /* Header */
+    header {
+      background-color: #0b2f9f;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     
+    }
+
+    /* Main Wrapper */
+    .wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Content Area */
+    .content {
+      flex: 1;
+    }
+
+    .container{
+    
+      margin-left: 270px;
+      width: 70%;
+
+    }
+@media (max-width:970px) {
+    .container{
+        margin-left: 0;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+}
+    /* Cards */
+    .card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      padding: 1rem 0;
+      text-align: center;
+      font-size: 1rem;
+      background-color: rgba(207, 215, 207, 0.9);
+      color: #333;
+      width: 100%;
+      position: relative;
+    }
+   
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <button class="sidebar-hamburger hamburger">&#9776;</button>
+    <!-- Header -->
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <!-- Sidebar -->
+    <aside th:replace="~{fragments/sidebar :: div}"></aside>
+
+    <!-- Main Content -->
+    <main class="content container-fluid container">
+      <h1 class="fw-bold mt-4" style="color: rgb(39, 39, 39)">
+        Welcome to Cylinder Management System
+      </h1>
+      <p class="lead text-secondary">
+        Manage your cylinders efficiently with our system
+      </p>
+
+      <!-- Vertically Stacked Cards -->
+      <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+          <div class="card shadow-lg border-0 mb-3">
+            <div class="card-body text-center">
+              <h2 class="card-title h5">View Cylinders</h2>
+              <p class="card-text">
+                Check the list of all cylinders available.
+              </p>
+              <a th:href="@{/cylinders}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+
+          <div class="card shadow-lg border-0 mb-3">
+            <div class="card-body text-center">
+              <h2 class="card-title h5">Add Cylinder</h2>
+              <p class="card-text">Register a new cylinder in the system.</p>
+              <a th:href="@{/add-cylinder}" class="btn btn-success">Go</a>
+            </div>
+          </div>
+
+          <div class="card shadow-lg border-0 mb-3">
+            <div class="card-body text-center">
+              <h2 class="card-title h5">Manage Cylinders</h2>
+              <p class="card-text">
+                Refill, update, or delete cylinder records.
+              </p>
+              <a th:href="@{/update-cylinder}" class="btn btn-warning">Go</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Fuel Agency Management System. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS and Custom JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/hamburgerMenu.js"></script>
+</body>
+</html>

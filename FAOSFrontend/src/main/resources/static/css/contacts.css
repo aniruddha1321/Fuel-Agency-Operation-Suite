@@ -1,0 +1,150 @@
+/* Updated CSS */
+:root {
+  --primary-color: #2A4D6E;
+  --secondary-color: #3A7CA5;
+  --accent-color: #F9C80E;
+  --text-color: #3D3D3D;
+  --light-bg: #F8F9FA;
+}
+
+body {
+  
+  color: var(--text-color);
+  line-height: 1.7;
+}
+
+
+
+.contact-us .container {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  max-width: 1200px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography */
+.contact-us h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.contact-us h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin: 3rem 0 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+
+
+.contact-us p {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+}
+
+
+
+.hero-image {
+  border-radius: 16px;
+  transform: rotate(3deg);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: rotate(1deg) scale(1.02);
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--light-bg);
+  height: 100%;
+}
+
+.card-body {
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.card i {
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+  background: rgba(58, 124, 165, 0.1);
+  padding: 1.5rem;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(42, 77, 110, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-us h1 {
+    font-size: 2.2rem;
+  }
+  
+  .contact-us h2 {
+    font-size: 1.75rem;
+  }
+  
+  .hero-section {
+    padding: 2rem 0;
+  }
+  
+  .hero-image {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-us .container {
+    padding: 1.5rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+}

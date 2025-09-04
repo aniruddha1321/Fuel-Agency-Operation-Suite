@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consumer Registration Success</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/components/header.css">
-    <link rel="stylesheet" href="/css/components/buttons.css">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/components/header.css" />
+    <link rel="stylesheet" href="/css/components/forms.css" />
+    <link rel="stylesheet" href="/css/components/buttons.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/css/components/header.css" />
     <style>
         .customer-detail {
             padding: 8px;
@@ -34,6 +44,9 @@
     </style>
 </head>
 <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+
 <div class="container">
     <div class="alert-success text-center">
         <h4>Congratulations!</h4>
@@ -75,5 +88,6 @@
         </div>
     </div>
 </div>
+<script src="/js/hamburgerMenu.js"></script>
 </body>
 </html>

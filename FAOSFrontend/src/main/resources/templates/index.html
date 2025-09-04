@@ -1,52 +1,160 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - FAOS</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/components/header.css">
-    <link rel="stylesheet" href="/css/components/buttons.css">
-</head>
-<body>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-<header class="header">
-    <nav class="nav">
-        <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a href="#" class="nav-link">Customer</a>
-            <div class="dropdown-content">
-                <a href="/register" class="dropdown-item">Customer Registration</a>
-                <a href="/customers" class="dropdown-item">Display Customers</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a href="/cylinder" class="nav-link">Cylinder Management</a>
-        </li>
-        <li class="nav-item">
-            <a href="/supplier" class="nav-link">Supplier Management</a>
-        </li>
-        <li class="nav-item">
-            <a href="/booking" class="nav-link">Customer Booking</a>
-        </li>
-        <li class="nav-item">
-            <a href="/reports" class="nav-link">Report Management</a>
-        </li>
-        <li class="nav-item">
-            <a href="/logout" class="nav-link">Logout</a>
-        </li>
-    </nav>
-</header>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/components/forms.css" />
+    <link rel="stylesheet" href="/css/components/buttons.css" />
+    <link rel="stylesheet" href="/css/components/sucesssError.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/components/header.css" />
+    <style>
+  body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/images/indexBg.jpg') no-repeat center center;
+        background-size: cover;
+        opacity: 0.3; /* Adjust the opacity to your liking */
+        z-index: -1; /* Send it behind everything */
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
 
-<div class="container text-center">
-    <h1 class="welcome-text">Welcome to Fuel Agency Operation Suite</h1>
-    <p>Efficiently manage your customer information with our comprehensive system</p>
-    <div class="actions">
+    
+    <!-- success message when logged in -->
+    <div
+      th:if="${success}"
+      th:text="${success}"
+      class="successMessage fade-out"
+      style="top: 12%;"
+    ></div><br><br>
+    <div class="container text-center mt-5 pb-5">
+      
+      <h1 class="welcome-text">Welcome to FAOS Agency Management</h1>
+      <p>
+        Efficiently manage your customer information with our comprehensive
+        system
+      </p>
+      <div class="actions" th:if="${session.userType == 'ADMIN'}">
         <a href="/register" class="btn btn-primary">Register Customer</a>
         <a href="/customers" class="btn btn-secondary">Display Customers</a>
+      </div>
+
+      <div class="loginBtn" th:if="${session.userId == null} ">
+        <button id="adminLoginBtn" class="btn btn-success mx-2">
+          Admin Login
+        </button>
+        <button id="customerLoginBtn" class="btn btn-primary mx-2">
+          Customer Login
+        </button>
+      </div>
+        <!-- Error Message -->
+        <div
+          th:if="${error}"
+          class="alert alert-danger alert-dismissible fade show error-info fade-out"
+          role="alert"
+        >
+          <span th:text="${error}"></span>
+        </div>
+        <!-- Login Form -->
+        <div id="loginFormContainer" class="mt-5" style="display: none">
+          <form
+            id="loginForm"
+            th:action="@{/login}"
+            method="post"
+            class="border p-4 rounded"
+            onsubmit="return validateForm()"
+          >
+            <h3 class="mb-3" id="formTitle"></h3>
+            <input type="hidden" name="userType" id="userType" />
+            <div class="mb-3">
+              <label for="username" class="form-label">User Id</label>
+              <input
+                type="text"
+                id="username"
+                name="userId"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </div>
+
     </div>
-</div>
-</body>
+    <script src="/js/hamburgerMenu.js"></script>
+    <script>
+      const adminLoginBtn = document.getElementById("adminLoginBtn");
+      const customerLoginBtn = document.getElementById("customerLoginBtn");
+      const loginFormContainer = document.getElementById("loginFormContainer");
+      const formTitle = document.getElementById("formTitle");
+      const userTypeField = document.getElementById("userType");
+
+      adminLoginBtn.addEventListener("click", () => {
+        formTitle.textContent = "Admin Login";
+        userTypeField.value = "ADMIN";
+        loginFormContainer.style.display = "block";
+      });
+
+      customerLoginBtn.addEventListener("click", () => {
+        formTitle.textContent = "Customer Login";
+        userTypeField.value = "CUSTOMER";
+        loginFormContainer.style.display = "block";
+      });
+
+      function validateForm() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        if (!username || !password) {
+          alert("Please fill in all fields");
+          return false;
+        }
+        return true;
+      }
+
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+
+      document.getElementById("loginForm").onsubmit = function () {
+        setTimeout(function () {
+          window.history.replaceState(null, null, window.location.href);
+        }, 0);
+      };
+
+     
+    </script>
+  </body>
 </html>

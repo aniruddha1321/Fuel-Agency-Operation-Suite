@@ -57,8 +57,34 @@ body {
 
 .card-content {
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.profile-image-section {
+  flex-shrink: 0;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
+.profile-photo {
+  width: 350px;
+  height: 200px;
+  border-radius: 15px;
+  border: 4px solid #4CAF50;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+}
+
+@media (max-width:992px){
+  .profile-photo{
+    width: 150px;
+    height: 100px;
+    overflow: hidden;
+  }
+}
 .info-group {
   margin-bottom: 15px;
   display: flex;
@@ -129,6 +155,7 @@ body {
 
 .password-section {
   margin-top: 20px;
+
 }
 
 .hidden {
@@ -167,7 +194,9 @@ body {
     /* Animation */
     animation: fadeInSlideDown 0.5s ease-in-out;
 }
-
+.successMessage.hidden {
+  display: none !important; /* Completely hide the element */
+}
 /* Success Icon Styling (optional) */
 .successMessage::before {
     content: '✔'; /* Unicode for checkmark */

@@ -1,52 +1,117 @@
 /* login.css */
-.login-container {
-    max-width: 400px;
-    margin: 100px auto;
+:root {
+  --primary-color: #3b82f6; /* Vibrant blue */
+  --secondary-color: #38bdf8; /* Lighter complementary blue */
+  --background-color: #eef2f7; /* Subtle gradient background */
+  --text-color: #334155; /* Darker, modern text color */
+  --error-color: #f87171; /* Softer red for error messages */
+  --input-border-color: #d1e3f2; /* Subtle border color */
+  --placeholder-color: #94a3b8; /* Light modern placeholder color */
 }
 
-.login-title {
-    color: var(--primary-color);
-    margin-bottom: 30px;
-    font-size: 2em;
+/* General Styles */
+body {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #f0f8ff, #cfe3fc);
+  margin: 0;
+  padding: 0;
+  color: #333;
+  text-align: center;
+}
+ 
+
+
+/* Main Content */
+h1 {
+  font-size: 2rem;
+  margin: 20px 0;
 }
 
-.error-message {
-    color: var(--error-color);
-    background-color: #ffe6e6;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    display: none;
+p {
+  font-size: 1.2rem;
+  margin: 10px 0 30px;
 }
 
-/* Override form group spacing for login page */
-.login-container .form-group {
-    margin-bottom: 25px;
+#adminLoginBtn {
+  background-color: #28a745;
+  color: white;
 }
 
-/* Style the select dropdown consistently */
-.login-container select.form-control {
-    background-color: white;
-    cursor: pointer;
+#adminLoginBtn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
 }
 
-.login-container select.form-control:focus {
-    border-color: var(--secondary-color);
-    outline: none;
+#customerLoginBtn {
+  background-color: #007bff;
+  color: white;
 }
 
-/* Add some hover effects to form inputs */
-.login-container .form-control:hover {
-    border-color: var(--secondary-color);
+#customerLoginBtn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
-/* Style placeholder text */
-.login-container .form-control::placeholder {
-    color: #999;
-    font-size: 0.9em;
+/* Login Form */
+#loginFormContainer {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
-/* Make sure the error message shows when it has content */
-.login-container .error-message:not(:empty) {
-    display: block;
+#loginForm {
+  padding: 20px;
+}
+
+#loginForm h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button */
+#loginForm button[type="submit"] {
+  background-color: #007bff;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  color: white;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+#loginForm button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+.loginBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 768px){
+
+  .loginBtn{
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nav-logo{
+    font-size: 1rem;
+  }
 }

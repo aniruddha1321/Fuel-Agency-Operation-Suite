@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Cylinder List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/components/sucesssError.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/css/components/header.css" />
+    <link rel="stylesheet" href="/css/sidebar.css" />
+    <style>
+      header {
+        background-color: #0b2f9f;
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000000;
+      }
+      .container {
+        margin-top: 7rem;
+        margin-left: 270px;
+        width: 80%;
+      }
+      @media (max-width: 970px) {
+        .container {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+
+      .error-info{
+        left: 23px;
+		width: 90%;
+      }
+
+
+
+    </style>
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div th:replace="~{fragments/sidebar :: div}"></div>
+
+    <!-- Main Content -->
+      
+    <div
+      class="container" 
+    >
+
+     <!-- Error Message -->
+     <div
+     th:if="${errorMessage}"
+     class="alert alert-danger alert-dismissible fade show error-info fade-out"
+     role="alert"
+   >
+     <span th:text="${errorMessage}"></span>
+   </div>
+      <div class="card shadow-lg border-0 p-4 mt-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h2 class="card-title text-primary" style="font-weight: bold">
+              List of all Cylinders
+            </h2>
+            <a th:href="@{/add-cylinder}" class="btn btn-success">
+              <i class="bi bi-plus-circle"></i> Add New Cylinder
+            </a>
+          </div>
+
+          <!-- Filters -->
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <input
+                type="text"
+                id="filterCylinderId"
+                class="form-control"
+                placeholder="Filter by Cylinder ID"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                id="filterSupplier"
+                class="form-control"
+                placeholder="Filter by Supplier Name"
+              />
+            </div>
+            <div class="col-md-3">
+              <select id="filterType" class="form-select">
+                <option value="">Filter by Type</option>
+                <option value="FULL">Full</option>
+                <option value="EMPTY">Empty</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select id="filterStatus" class="form-select">
+                <option value="">Filter by Status</option>
+                <option value="AVAILABLE">Available</option>
+                <option value="DELIVERED">Delivered</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cylinder Table -->
+          <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover" id="cylinderTable">
+              <thead class="table-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Weight (kg)</th>
+                  <th>Supplier</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Created Date</th>
+                  <th>Refill Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="cylinder : ${cylinders}">
+                  <td th:text="${cylinder.id}" class="cylinder-id"></td>
+                  <td th:text="${cylinder.weight}"></td>
+                  <td
+                    th:text="${cylinder.supplier.name}"
+                    class="supplier-name"
+                  ></td>
+                  <td th:text="${cylinder.type}" class="cylinder-type"></td>
+                  <td class="cylinder-status">
+                    <span
+                      th:classappend="${cylinder.status.name() == 'AVAILABLE' ? 'badge bg-success' : (cylinder.status.name() == 'DELIVERED' ? 'badge bg-danger' : '')}"
+                      th:text="${cylinder.status.name()}"
+                    >
+                    </span>
+                  </td>
+                  <td th:text="${cylinder.createdDate}"></td>
+                  <td th:text="${cylinder.refillDate}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-secondary">
+              <i class="bi bi-house-door"></i> Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        function filterTable() {
+          let filterId = $("#filterCylinderId").val().toLowerCase();
+          let filterSupplier = $("#filterSupplier").val().toLowerCase();
+          let filterType = $("#filterType").val();
+          let filterStatus = $("#filterStatus").val();
+
+          $("#cylinderTable tbody tr").each(function () {
+            let cylinderId = $(this).find(".cylinder-id").text().toLowerCase();
+            let supplierName = $(this)
+              .find(".supplier-name")
+              .text()
+              .toLowerCase();
+            let cylinderType = $(this).find(".cylinder-type").text();
+            let cylinderStatus = $(this).find(".cylinder-status span").text();
+
+            if (
+              (filterId === "" || cylinderId.includes(filterId)) &&
+              (filterSupplier === "" ||
+                supplierName.includes(filterSupplier)) &&
+              (filterType === "" || cylinderType === filterType) &&
+              (filterStatus === "" || cylinderStatus === filterStatus)
+            ) {
+              $(this).show();
+            } else {
+              $(this).hide();
+            }
+          });
+        }
+
+        $("#filterCylinderId, #filterSupplier, #filterType, #filterStatus").on(
+          "input change",
+          function () {
+            filterTable();
+          }
+        );
+      });
+    </script>
+    <script src="/js/hamburgerMenu.js"></script>
+  </body>
+</html>

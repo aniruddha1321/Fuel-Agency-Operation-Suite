@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/success.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Booking Successful!</h1>
+    <h3>Booking Summary:</h3>
+    <div>
+        <p><strong>Booking ID:</strong> <span th:text="${recent.bookingId}"></span></p>
+        <p><strong>Customer Name:</strong> <span th:text="${book.consumerName}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${book.email}"></span></p>
+        <p><strong>Phone Number:</strong> <span th:text="${book.contactNo}"></span></p>
+        <p><strong>Cylinder Type:</strong> <span th:text="${book.connType}"></span></p>
+        <p><strong>Time Slot:</strong> <span th:text="${book.timeSlot}"></span></p>
+        <p><strong>Delivery Option:</strong> <span th:text="${book.deliveryOption}"></span></p>
+        <p><strong>Delivery Date:</strong> <span th:text="${book.deliveryDate}"></span></p>
+
+        <!-- ✅ Corrected Base Price Display (Excluding Surcharge) -->
+        <p><strong>Base Price:</strong> <span th:text="${price - (book.surcharge != null ? book.surcharge : 0)}"></span></p>
+
+        <!-- ✅ Display Surcharge if applicable -->
+        <p th:if="${book.surcharge != null && book.surcharge > 0}">
+            <strong>Surcharge (20% extra):</strong> <span th:text="${book.surcharge}"></span>
+        </p>
+
+        <!-- ✅ Corrected Total Price Calculation -->
+        <p><strong>Total Price:</strong> <span th:text="${price}"></span></p>
+
+        <p><strong>Payment Through:</strong> <span th:text="${book.paymentOption}"></span></p>
+    </div>
+    <p>Thank you for booking with us!</p>
+    
+    <!-- ✅ Booking History Button - Corrected Consumer ID Passing -->
+    <form th:action="@{/history}" method="GET">
+        <input type="hidden" name="consumerId" th:value="${book.consumerId}" />
+        <button type="submit" class="booking-history-btn">View Booking History</button>
+    </form>
+</div>
+
+<!-- ✅ Hidden field to store surcharge message -->
+<input type="hidden" id="surchargeMessage" th:value="${surchargeMessage}">
+
+<script>
+    window.onload = function () {
+        var surchargeMessage = document.getElementById("surchargeMessage").value;
+        
+        if (surchargeMessage && surchargeMessage.trim() !== "") {
+            alert(surchargeMessage); // ✅ Show alert if surcharge applies
+        }
+    };
+</script>
+
+</body>
+</html>

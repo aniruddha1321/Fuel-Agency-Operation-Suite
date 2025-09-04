@@ -1,0 +1,94 @@
+/* Style for the body with an animated gradient background */
+.body {
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #8a2be2, #00bcd4, #4caf50);
+    background-size: 400% 400%;
+    animation: gradientAnimation 8s ease infinite;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Gradient animation */
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Container for header */
+  .container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Style for the header */
+  .container h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: 10px;
+  }
+
+  /* Style for the form */
+  form {
+    background: rgba(255, 255, 255, 0.2); /* Transparent overlay */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 300px;
+
+  }
+
+  /* Label styles */
+  form label {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: bold;
+
+    display: block;
+  }
+
+  /* Input styles */
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  /* Button styles */
+  form button {
+    background-color:#b993c2; /* Violet touch */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  form button:hover {
+    background-color: #6a1cb7; /* Darker violet on hover */
+  }
+
+
+#alertMessage{
+display:none;
+}

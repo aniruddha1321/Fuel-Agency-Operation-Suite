@@ -1,8 +1,13 @@
 package com.faos.controller;
 
+import java.io.Console;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -13,9 +18,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.faos.model.Customer;
+
 import org.springframework.http.ResponseEntity;
-import jakarta.validation.Valid;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,25 +31,56 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CustomerController {
+
     private static final String BACKEND_URL = "http://localhost:8080";
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/")
+    // @GetMapping("/customerIndex")
+    // public String index() {
+    //     return "index";
+    // }
+
+    @GetMapping("/home")
     public String home() {
-        return "index";
+
+        return "redirect:/";
     }
 
+    @GetMapping("/about")
+    public String about(Model model)
+    {
+        model.addAttribute("customer", new Customer());
+        return "aboutUs";
+    }
+    @GetMapping("/contact")
+    public String contact(Model model)
+    {
+        model.addAttribute("customer", new Customer());
+        return "contactUs";
+    }
+
+  
+
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(Model model, HttpSession session) {
+        String userType  = (String) session.getAttribute("userType");
+        if (session.isNew() || session.getAttribute("userType") == null) {
+            return "redirect:/"; // Redirect unauthenticated users
+        }
+    
+        if ("CUSTOMER".equals(userType)) {
+            session.invalidate(); // Invalidate session
+            return "redirect:/"; // Redirect to home or another page
+        }
+        
         model.addAttribute("customer", new Customer());
         return "register";
     }
 
     @PostMapping("/register")
     public String addCustomer(@Valid @ModelAttribute Customer customer, BindingResult bindingResult, Model model) {
-        // Check for validation errors
         if (bindingResult.hasErrors()) {
             return "register";
         }
@@ -57,20 +95,24 @@ public class CustomerController {
             return "addSuccess";
         } catch (HttpClientErrorException.BadRequest e) {
             String responseBody = e.getResponseBodyAsString();
+            System.out.println("This is the error"+responseBody);
+
             try {
                 Map<String, String> errors = new ObjectMapper().readValue(responseBody, Map.class);
-                // Check for specific field errors
+                
+                // Handle email validation errors
                 if (errors.containsKey("email")) {
                     bindingResult.rejectValue("email", "error.email", errors.get("email"));
                 }
+                if(errors.containsKey("emailExist")){
+                    bindingResult.rejectValue("email", "error.email", errors.get("emailExist"));
+                }
+                // Handle contact validation errors
                 if (errors.containsKey("contactNo")) {
                     bindingResult.rejectValue("contactNo", "error.contactNo", errors.get("contactNo"));
                 }
-                if (errors.containsKey("email")) {
-                    bindingResult.rejectValue("email", "error.email", errors.get("email"));
-                }
-                if (errors.containsKey("contactNo")) {
-                    bindingResult.rejectValue("contactNo", "error.contactNo", errors.get("contactNo"));
+                if (errors.containsKey("contactExist")) {
+                    bindingResult.rejectValue("contactNo", "error.contactNo", errors.get("contactExist"));
                 }
             } catch (JsonProcessingException ex) {
                 model.addAttribute("errorMessage", "Registration failed: Invalid data");
@@ -78,7 +120,6 @@ public class CustomerController {
             return "register";
         }
     }
-
 
     @GetMapping("/customers")
     public String listCustomers(@RequestParam(required = false) String searchId, Model model, HttpSession session) {
@@ -91,7 +132,8 @@ public class CustomerController {
                     BACKEND_URL + "/getAllCustomers",
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<List<Customer>>() {}
+                    new ParameterizedTypeReference<List<Customer>>() {
+            }
             );
             List<Customer> customers = response.getBody();
             if (searchId != null && !searchId.trim().isEmpty()) {
@@ -164,6 +206,7 @@ public class CustomerController {
         String userId = (String) session.getAttribute("userId");
         String userType = (String) session.getAttribute("userType");
 
+
         if (userId == null || (!userType.equals("ADMIN") && !userId.equals(id))) {
             return "redirect:/login";
         }
@@ -187,8 +230,27 @@ public class CustomerController {
             // Return the addSuccess view
             return "addSuccess";
         } catch (HttpClientErrorException.BadRequest e) {
-            model.addAttribute("errorMessage", e.getResponseBodyAsString());
-            model.addAttribute("customer", customer);
+            String responseBody = e.getResponseBodyAsString();
+            try {
+                Map<String, String> errors = new ObjectMapper().readValue(responseBody, Map.class);
+                
+                // Handle email validation errors
+                if (errors.containsKey("email")) {
+                    bindingResult.rejectValue("email", "error.email", errors.get("email"));
+                }
+                // if(errors.containsKey("emailExist")){
+                //     bindingResult.rejectValue("email", "error.email", errors.get("emailExist"));
+                // }
+                // Handle contact validation errors
+                if (errors.containsKey("contactNo")) {
+                    bindingResult.rejectValue("contactNo", "error.contactNo", errors.get("contactNo"));
+                }
+                // if (errors.containsKey("contactExist")) {
+                //     bindingResult.rejectValue("contactNo", "error.contactNo", errors.get("contactExist"));
+                // }
+            } catch (JsonProcessingException ex) {
+                model.addAttribute("errorMessage", "Registration failed: Invalid data");
+            }
             return "update";
         }
     }
@@ -208,7 +270,7 @@ public class CustomerController {
     }
 
     private boolean isAuthenticated(HttpSession session) {
-        return session.getAttribute("userId") != null &&
-                session.getAttribute("userType") != null;
+        return session.getAttribute("userId") != null
+                && session.getAttribute("userType") != null;
     }
 }

@@ -31,3 +31,57 @@
 .form-control.invalid:focus {
   box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
 }
+/* General container styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 50vw;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Input styling */
+.form-input {
+  width: 90%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+  margin-bottom: 12px;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+}
+
+/* Button styling */
+.form-submit {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: center; /* Center the button */
+}
+
+.form-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Hidden state styling */
+.hidden {
+  display: none;
+}

@@ -102,10 +102,10 @@ public class Customer {
 	}
 	
 	
-	  @OneToMany(cascade = CascadeType.ALL, mappedBy="customerObj")
+	  @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
 	  //@JoinColumn(name = "bookingId")
 	  
-	  @com.fasterxml.jackson.annotation.JsonIgnoreProperties("customerObj") 
+	  @com.fasterxml.jackson.annotation.JsonIgnoreProperties("customer") 
 	  private List<Booking> bookingList;
 	 
 	

@@ -1,0 +1,40 @@
+body {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+.search-box {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.table-container {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.table {
+    margin-bottom: 0;
+}
+.table thead {
+    background-color: #0d6efd;
+    color: white;
+}
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+.status-active {
+    background-color: #198754;
+    color: white;
+}
+.status-inactive {
+    background-color: #dc3545;
+    color: white;
+}
+.inactive-row {
+    background-color: #f8f9fa;
+}
+

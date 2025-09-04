@@ -1,0 +1,73 @@
+.successMessage {
+  /* Basic Styling */
+  position: absolute;
+  color: #155724; /* Dark green text for success */
+  background-color: #d4edda; /* Light green background */
+  border: 1px solid #c3e6cb; /* Border matching the background theme */
+  padding: 15px 20px; /* Padding for better readability */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 1rem; /* Responsive font size */
+  font-family: "Arial", sans-serif; /* Clean and standard font */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+  /* Flexbox for icon and text alignment */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between icon and text */
+  left: 43%;
+  top: 12%;
+  /* Animation */
+  animation: fadeInSlideDown 0.5s ease-in-out;
+}
+.successMessage.hidden {
+  display: none !important; /* Completely hide the element */
+}
+/* Success Icon Styling (optional) */
+.successMessage::before {
+  content: "✔"; /* Unicode for checkmark */
+  font-size: 1.2rem;
+  color: #155724;
+  display: inline-block;
+}
+
+/* Fade-in and slide-down animation */
+@keyframes fadeInSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 600px) {
+  .successMessage {
+    font-size: 0.9rem; /* Smaller font size for mobile */
+    padding: 10px 15px;
+    top: 10%;
+    left: 31%;
+  }
+}
+.error-info {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: absolute;
+
+  left: 42%;
+}
+/* Animation */
+.fade-out {
+  animation: fadeOut 4s forwards;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}

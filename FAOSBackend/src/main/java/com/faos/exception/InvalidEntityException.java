@@ -1,11 +1,19 @@
 package com.faos.exception;
 
-public class InvalidEntityException extends RuntimeException {
+import java.util.Map;
 
-	 public InvalidEntityException(String message) {
-	        super(message);
-	 }
-	 public InvalidEntityException() {
-		 
-	 }
+public class InvalidEntityException extends RuntimeException {
+    private Map<String, String> errorMap = null;
+	
+		public InvalidEntityException(Map<String, String> errorMap) {
+			super("Invalid entity");
+			this.errorMap = errorMap;
+    }
+	public InvalidEntityException(String message){
+		super(message);
+	}
+
+    public Map<String, String> getErrorMap() {
+        return errorMap;
+    }
 }

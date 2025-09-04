@@ -1,0 +1,92 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Fuel Booking</title>-->
+<!--  <link rel="stylesheet" th:href="@{/css/booking.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<header>-->
+<!--&lt;!&ndash;  <div class="logo">Fuel Agency</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <nav>&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="/home">Home</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="/services">Services</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="/booking" class="active">Booking</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="/about">About Us</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="/contact">Contact Us</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;  </nav>&ndash;&gt;-->
+<!--&lt;!&ndash;</header>&ndash;&gt;-->
+
+<!--<section class="booking-form">-->
+<!--  <div>-->
+<!--    <img th:src="@{/images/user2.png}" alt="Customer Image" class="custImg">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <p th:if="${permit}" th:text="${permit}" id="alertMessage"></p>-->
+<!--  </div>-->
+
+<!--  <form th:action="@{/booking}" th:object="${bookingPageView}" method="POST" enctype="multipart/form-data">-->
+<!--    <div class="form-section">-->
+<!--      <h3>Customer Information</h3>-->
+<!--      <div class="form-fields-container">-->
+<!--        <div class="form-field">-->
+<!--          <label>CustomerId:</label>-->
+<!--          <input type="text" th:field="*{consumerId}" readonly />-->
+<!--        </div>-->
+<!--        <div class="form-field">-->
+<!--          <label>Name:</label>-->
+<!--          <input type="text" th:field="*{consumerName}" readonly />-->
+<!--        </div>-->
+<!--        <div class="form-field">-->
+<!--          <label>Address:</label>-->
+<!--          <textarea th:field="*{address}" rows="3" readonly></textarea>-->
+<!--        </div>-->
+<!--        <div class="form-field">-->
+<!--          <label>Phone Number:</label>-->
+<!--          <input type="tel" th:field="*{contactNo}" readonly />-->
+<!--        </div>-->
+<!--        <div class="form-field">-->
+<!--          <label>Email:</label>-->
+<!--          <input type="email" th:field="*{email}" readonly />-->
+<!--        </div>-->
+<!--        <div class="form-field">-->
+<!--          <label>Cylinder Type:</label>-->
+<!--          <input type="text" th:field="*{connType}" readonly />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
+<!--    <div class="form-field">-->
+<!--      <button type="submit">Book </button>-->
+
+<!--      &lt;!&ndash;            <a th:href="@{/history?consumerId=${bookingPageView.consumerId}}" th:text="'See booking history'"></a>&ndash;&gt;-->
+<!--    </div>-->
+<!--  </form>-->
+
+
+<!--  <form th:action="@{/submit-booking}" th:object="${bookingPageView}" method="POST" enctype="multipart/form-data">-->
+<!--    <input type="hidden" th:field="*{consumerId}" />-->
+<!--    <a th:href="@{/history?consumerId={consumerId}(consumerId=${bookingPageView.consumerId})}" class="booking">Booking history </a>-->
+<!--  </form>-->
+<!--&lt;!&ndash;  <form th:action="@{/submit-booking}" th:object="${bookingPageView}" method="POST" enctype="multipart/form-data">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="hidden" th:field="*{consumerId}" />&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:href="@{/history?consumerId={consumerId}(consumerId=${bookingPageView.consumerId})}">Book Cylinder</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  </form>&ndash;&gt;-->
+
+<!--</section>-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;  document.addEventListener("DOMContentLoaded", function () {&ndash;&gt;-->
+<!--&lt;!&ndash;      var alertMessage = document.getElementById("alertMessage");&ndash;&gt;-->
+<!--&lt;!&ndash;      if (alertMessage && alertMessage.innerText.trim() !== "") {&ndash;&gt;-->
+<!--&lt;!&ndash;          alert(alertMessage.innerText);&ndash;&gt;-->
+<!--&lt;!&ndash;      }&ndash;&gt;-->
+<!--&lt;!&ndash;  });&ndash;&gt;-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
