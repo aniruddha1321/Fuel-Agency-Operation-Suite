@@ -11,9 +11,6 @@ A comprehensive web-based management system for fuel agencies to handle customer
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
