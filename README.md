@@ -148,6 +148,65 @@ Customer:
 - Register new account or use existing customer ID
 ```
 
+## 🤝 Contributing
+
+We welcome contributions from the community! Whether you're fixing bugs, adding new features, or improving documentation, your help is appreciated.
+
+### How to Contribute
+
+1. **Fork the repository** to your GitHub account
+2. **Clone your fork** locally:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/Fuel-Agency-Operation-Suite.git
+   ```
+3. **Create a new branch** for your feature or bug fix:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+4. **Make your changes** following our coding standards
+5. **Test your changes** thoroughly
+6. **Commit your changes** with a clear commit message:
+   ```bash
+   git commit -m "Add: Brief description of your changes"
+   ```
+7. **Push to your fork**:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+8. **Create a Pull Request** from your fork to the main repository
+
+### Development Guidelines
+
+- **Code Style**: Follow Java conventions and maintain consistent formatting
+- **Documentation**: Update documentation for any new features or changes
+- **Testing**: Ensure all existing tests pass and add tests for new functionality
+- **Commit Messages**: Use clear, descriptive commit messages
+- **Pull Requests**: Provide detailed descriptions of your changes
+
+### Areas for Contribution
+
+- 🐛 **Bug Fixes**: Help us squash bugs and improve stability
+- ✨ **New Features**: Add functionality to enhance the system
+- 📚 **Documentation**: Improve README, code comments, and user guides
+- 🎨 **UI/UX**: Enhance the user interface and experience
+- ⚡ **Performance**: Optimize code for better performance
+- 🧪 **Testing**: Add unit tests and integration tests
+
+### Reporting Issues
+
+If you find a bug or have a feature request:
+
+1. **Check existing issues** to avoid duplicates
+2. **Create a new issue** with a clear title and description
+3. **Include steps to reproduce** for bugs
+4. **Add labels** to categorize the issue appropriately
+
+### Code of Conduct
+
+Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms.
+
+Thank you for contributing to the Fuel Agency Operation Suite! 🚀
+
 ## API Endpoints
 
 ### Authentication
