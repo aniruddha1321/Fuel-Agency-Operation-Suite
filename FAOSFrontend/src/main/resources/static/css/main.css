@@ -17,9 +17,18 @@ body {
 }
 
 .container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
+.container {
+  width: 90%;              /* ✅ Take 90% of screen width */
+  max-width: 1200px;       /* ✅ But never exceed 1200px */
+  margin: 0 auto;          /* ✅ Center horizontally */
+}
+
+.main-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 }
 
 .card {
@@ -59,4 +68,57 @@ body {
 
 .header {
   margin-bottom: 0;
+}
+/* 📱 Mobile Devices (max-width: 600px) */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .navbar a {
+    display: block;
+    margin: 5px 0;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* 💻 Tablets (max-width: 900px) */
+@media screen and (max-width: 900px) {
+  .container {
+    width: 90%;
+  }
+
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .card {
+    width: 48%;
+  }
 }
