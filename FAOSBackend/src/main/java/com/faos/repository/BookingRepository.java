@@ -62,6 +62,32 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("SELECT COUNT(b) FROM Booking b WHERE b.customer.consumerId = :consumerId AND b.bookingDate BETWEEN :startDate AND :endDate")
     Integer findByConsumerIds(@Param("consumerId") String consumerId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-//    long findByConsumerIds(@Param("consumerId") String consumerId, @Param("string") String string, );
+    // Analytics query methods for dashboard reporting
+    @Query("SELECT COUNT(b) FROM Booking b WHERE DATE(b.bookingDate) = :date")
+    long countBookingsByDate(@Param("date") LocalDate date);
+    
+    @Query("SELECT COUNT(b) FROM Booking b WHERE b.bookingDate >= :startDate AND b.bookingDate <= :endDate")
+    long countBookingsBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    
+    @Query("SELECT b.deliveryOption, COUNT(b) FROM Booking b GROUP BY b.deliveryOption")
+    List<Object[]> countBookingsByDeliveryOption();
+    
+    @Query("SELECT b.paymentOption, COUNT(b) FROM Booking b GROUP BY b.paymentOption")
+    List<Object[]> countBookingsByPaymentOption();
+    
+    @Query("SELECT b.timeSlot, COUNT(b) FROM Booking b GROUP BY b.timeSlot ORDER BY COUNT(b) DESC")
+    List<Object[]> countBookingsByTimeSlot();
+    
+    @Query("SELECT DATE(b.bookingDate), COUNT(b) FROM Booking b WHERE b.bookingDate >= :startDate GROUP BY DATE(b.bookingDate) ORDER BY DATE(b.bookingDate)")
+    List<Object[]> getDailyBookingCounts(@Param("startDate") LocalDate startDate);
+    
+    @Query("SELECT YEAR(b.bookingDate), MONTH(b.bookingDate), COUNT(b) FROM Booking b WHERE b.bookingDate >= :startDate GROUP BY YEAR(b.bookingDate), MONTH(b.bookingDate) ORDER BY YEAR(b.bookingDate), MONTH(b.bookingDate)")
+    List<Object[]> getMonthlyBookingCounts(@Param("startDate") LocalDate startDate);
+    
+    @Query("SELECT SUM(bil.totalPrice) FROM Booking b JOIN b.bill bil WHERE b.bookingDate >= :startDate AND b.bookingDate <= :endDate")
+    Double getTotalRevenueBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    
+    @Query("SELECT YEAR(b.bookingDate), MONTH(b.bookingDate), SUM(bil.totalPrice) FROM Booking b JOIN b.bill bil WHERE b.bookingDate >= :startDate GROUP BY YEAR(b.bookingDate), MONTH(b.bookingDate) ORDER BY YEAR(b.bookingDate), MONTH(b.bookingDate)")
+    List<Object[]> getMonthlyRevenue(@Param("startDate") LocalDate startDate);
 
 }

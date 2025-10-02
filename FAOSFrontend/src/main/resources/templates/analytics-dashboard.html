@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Analytics Dashboard - FAOS</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Chart.js for Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .analytics-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card.primary {
+            border-left-color: #007bff;
+        }
+        
+        .stat-card.success {
+            border-left-color: #28a745;
+        }
+        
+        .stat-card.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .stat-card.info {
+            border-left-color: #17a2b8;
+        }
+        
+        .stat-card.danger {
+            border-left-color: #dc3545;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .growth-indicator {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+        
+        .growth-positive {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .growth-negative {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .sidebar-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-btn:hover {
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #545b62;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="analytics-header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="mb-0">
+                            <i class="fas fa-chart-line me-3"></i>
+                            Booking Analytics Dashboard
+                        </h1>
+                        <p class="mb-0 mt-2">Real-time insights into your fuel agency operations</p>
+                    </div>
+                    <div class="col-auto">
+                        <a href="/home" class="back-btn">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <!-- Error Message -->
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span th:text="${error}">Error message</span>
+            </div>
+            
+            <!-- Analytics Content -->
+            <div th:if="${analytics}" class="analytics-content">
+                <!-- Key Metrics Row -->
+                <div class="row mb-4">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stat-card primary">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="stat-number text-primary" th:text="${totalBookingsFormatted}">0</div>
+                                    <div class="stat-label">Total Bookings</div>
+                                    <div class="growth-indicator" 
+                                         th:classappend="${bookingGrowth >= 0} ? 'growth-positive' : 'growth-negative'">
+                                        <i th:class="${bookingGrowth >= 0} ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                                        <span th:text="${#numbers.formatDecimal(bookingGrowth, 1, 1)}">0.0</span>%
+                                    </div>
+                                </div>
+                                <div class="text-primary">
+                                    <i class="fas fa-calendar-check fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stat-card success">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="stat-number text-success" th:text="${totalRevenueFormatted}">₹0.00</div>
+                                    <div class="stat-label">Total Revenue</div>
+                                    <div class="growth-indicator"
+                                         th:classappend="${revenueGrowth >= 0} ? 'growth-positive' : 'growth-negative'">
+                                        <i th:class="${revenueGrowth >= 0} ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                                        <span th:text="${#numbers.formatDecimal(revenueGrowth, 1, 1)}">0.0</span>%
+                                    </div>
+                                </div>
+                                <div class="text-success">
+                                    <i class="fas fa-rupee-sign fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stat-card warning">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="stat-number text-warning" th:text="${analytics.todayBookings}">0</div>
+                                    <div class="stat-label">Today's Bookings</div>
+                                    <div class="growth-indicator growth-positive">
+                                        <i class="fas fa-calendar-day"></i>
+                                        Live Data
+                                    </div>
+                                </div>
+                                <div class="text-warning">
+                                    <i class="fas fa-calendar-day fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stat-card info">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="stat-number text-info" th:text="${analytics.thisMonthBookings}">0</div>
+                                    <div class="stat-label">This Month</div>
+                                    <div class="growth-indicator growth-positive">
+                                        <i class="fas fa-chart-line"></i>
+                                        Monthly Trend
+                                    </div>
+                                </div>
+                                <div class="text-info">
+                                    <i class="fas fa-calendar-alt fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="row">
+                    <!-- Delivery Options Chart -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3">
+                                <i class="fas fa-truck me-2"></i>
+                                Bookings by Delivery Option
+                            </h5>
+                            <canvas id="deliveryChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Options Chart -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3">
+                                <i class="fas fa-credit-card me-2"></i>
+                                Bookings by Payment Method
+                            </h5>
+                            <canvas id="paymentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Time Slots and Trends -->
+                <div class="row">
+                    <!-- Time Slots Chart -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3">
+                                <i class="fas fa-clock me-2"></i>
+                                Popular Time Slots
+                            </h5>
+                            <canvas id="timeSlotsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Monthly Trends Chart -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="chart-container">
+                            <h5 class="mb-3">
+                                <i class="fas fa-chart-area me-2"></i>
+                                Monthly Booking Trends
+                            </h5>
+                            <canvas id="monthlyTrendsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Insights -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="chart-container">
+                            <h5 class="mb-3">
+                                <i class="fas fa-lightbulb me-2"></i>
+                                Key Insights
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="border-start border-primary border-4 ps-3 mb-3">
+                                        <h6 class="text-primary mb-1">Peak Booking Time</h6>
+                                        <p class="mb-0" th:text="${analytics.peakBookingTime}">N/A</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="border-start border-success border-4 ps-3 mb-3">
+                                        <h6 class="text-success mb-1">Most Popular Delivery</h6>
+                                        <p class="mb-0" th:text="${analytics.mostPopularDeliveryOption}">N/A</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="border-start border-warning border-4 ps-3 mb-3">
+                                        <h6 class="text-warning mb-1">Preferred Payment</h6>
+                                        <p class="mb-0" th:text="${analytics.mostPopularPaymentOption}">N/A</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Analytics Charts Script -->
+    <script th:if="${analytics}">
+        // Delivery Options Chart
+        const deliveryCtx = document.getElementById('deliveryChart').getContext('2d');
+        const deliveryData = /*[[${analytics.bookingsByDeliveryOption}]]*/ {};
+        
+        new Chart(deliveryCtx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(deliveryData),
+                datasets: [{
+                    data: Object.values(deliveryData),
+                    backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Payment Options Chart
+        const paymentCtx = document.getElementById('paymentChart').getContext('2d');
+        const paymentData = /*[[${analytics.bookingsByPaymentOption}]]*/ {};
+        
+        new Chart(paymentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(paymentData),
+                datasets: [{
+                    data: Object.values(paymentData),
+                    backgroundColor: ['#17a2b8', '#fd7e14', '#6f42c1', '#e83e8c', '#20c997'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Time Slots Chart
+        const timeSlotsCtx = document.getElementById('timeSlotsChart').getContext('2d');
+        const timeSlotsData = /*[[${analytics.bookingsByTimeSlot}]]*/ {};
+        
+        new Chart(timeSlotsCtx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(timeSlotsData),
+                datasets: [{
+                    label: 'Bookings',
+                    data: Object.values(timeSlotsData),
+                    backgroundColor: '#007bff',
+                    borderColor: '#0056b3',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // Monthly Trends Chart
+        const monthlyCtx = document.getElementById('monthlyTrendsChart').getContext('2d');
+        const monthlyData = /*[[${analytics.monthlyBookingsLast12Months}]]*/ {};
+        
+        new Chart(monthlyCtx, {
+            type: 'line',
+            data: {
+                labels: Object.keys(monthlyData),
+                datasets: [{
+                    label: 'Bookings',
+                    data: Object.values(monthlyData),
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
